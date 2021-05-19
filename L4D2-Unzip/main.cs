@@ -38,10 +38,6 @@ namespace L4D2_Unzip
             
             
         }
-        /// <summary>
-        /// Returns the location of the CS:GO installation, or null if it's unable to find it. 
-        /// </summary>
-        /// <returns></returns>
         private string GetL4D2Dir()
         {
             string steamPath = (string)Registry.GetValue("HKEY_CURRENT_USER\\Software\\Valve\\Steam", "SteamPath", "");
@@ -64,18 +60,17 @@ namespace L4D2_Unzip
                 {
                     string match = pathRegex.Matches(line)[0].Groups[1].Value;
 
-                    // De-Escape vdf. 
                     libraries.Add(match.Replace("\\\\", "\\"));
                 }
             }
 
             foreach (var library in libraries)
             {
-                //string csgoPath = Path.Combine(library, "steamapps\\common\\Counter-Strike Global Offensive\\csgo");
-                string csgoPath = Path.Combine(library, "steamapps\\common\\Left 4 Dead 2\\left4dead2");
-                if (Directory.Exists(csgoPath))
+
+                string l4d2Path = Path.Combine(library, "steamapps\\common\\Left 4 Dead 2\\left4dead2");
+                if (Directory.Exists(l4d2Path))
                 {
-                    return csgoPath;
+                    return l4d2Path;
                 }
             }
 
